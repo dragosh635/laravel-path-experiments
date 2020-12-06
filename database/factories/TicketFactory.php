@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use App\Models\Ticket;
 
-class UserFactory extends Factory {
+class TicketFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Ticket::class;
 
     /**
      * Define the model's default state.
@@ -22,11 +21,9 @@ class UserFactory extends Factory {
      */
     public function definition() {
         return [
-            'name'           => $this->faker->name,
-            'email'          => $this->faker->unique()->safeEmail,
-            'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => Str::random( 10 ),
-            'team_id'        => function ( array $post ) {
+            'title'       => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'team_id'     => function ( array $ticket ) {
                 return DB::table( 'teams' )
                          ->inRandomOrder()
                          ->first()
